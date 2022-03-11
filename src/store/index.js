@@ -26,6 +26,9 @@ const store = new Vuex.Store({
           state.todos.unshift(todo);
         }
       },
+      deleteTodo(state , id ) {
+        state.todos.splice(state.todos.findIndex(todo => todo.id === id), 1);
+      },
       
     },
     getters:{

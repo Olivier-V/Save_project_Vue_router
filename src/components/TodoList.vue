@@ -6,21 +6,19 @@
                       }">{{todo.description}}</p>
         <button @click="toggleDone(todo.id)" v-if="!todo.done" class="flex p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500">Fait</button>
         <button @click="toggleDone(todo.id)" v-else-if="todo.done" class="flex p-2 ml-4 mr-2 border-2 rounded hover:text-white text-gray-500 border-gray-500 hover:bg-gray-500">Pas fait</button>
-        <button @click="deleteTodoList(todo.id)" class="flex p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500">Supprimer</button>
-        <!-- <todo-task @onDelete="onDeleteList" @onToggle='toggleDone' :todo="todo" /> -->
+        <button @click="onDeleteTodo(todo.id)" class="flex p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500">Supprimer</button>
+        <button class="flex p-2 ml-2 border-2 rounded text-gray-500 border-gray-500 hover:text-black hover:bg-gray-500"><router-link :to="{ name: 'todo', params: { id : todo.id }}">Edit</router-link></button>
     </div>
 </div>
 </template>
 
 <script>
-// import TodoTask from '@/components/TodoTask.vue'
+
 export default {
-    components:{
-        // TodoTask
-    },
-     props:{
-         onDelete : Function
-     },
+    
+    //  props:{
+    //      onDelete : Function
+    //  },
     methods: {
     toggleDone(id) {
       const todoToEdit = this.$store.state.todos.find((todo) => todo.id === id);
@@ -28,12 +26,11 @@ export default {
         todoToEdit.done = !todoToEdit.done;
       }
     },
-    deleteTodoList(id){
-          this.$emit('onDelete',id )
+    onDeleteTodo(id){
+          this.$store.commit("deleteTodo" , id );
           console.log("card")
-      }
-
-  },
+      },
+    },
 
 }
 </script>

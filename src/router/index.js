@@ -11,11 +11,11 @@ const routes = [
       path: '/',
       component : HomePage
     },
-    // {
-    //     name:'todo',
-    //     path: '/todo/id',
-    //     component : () => import ('../pages/ToDoEditPage.vue')
-    // },
+     {
+         name:'todo',
+         path: '/todo/:id',
+         component : () => import ('../pages/TodoEditPage.vue')
+    },
     {
         name: 'todos',
         path: '/todos',

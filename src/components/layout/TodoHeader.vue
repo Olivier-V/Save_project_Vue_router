@@ -12,7 +12,8 @@
     display:flex;
     background-color:lightcoral;
     justify-content: space-around;
-    height: 30px;
+    height: 50px;
+    color: white;
 }
 </style>
 

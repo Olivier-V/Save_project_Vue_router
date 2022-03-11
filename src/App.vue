@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import TodoHeader from '@/components/TodoHeader.vue'
+import TodoHeader from '@/components/layout/TodoHeader.vue'
 export default {
   components:{
     TodoHeader

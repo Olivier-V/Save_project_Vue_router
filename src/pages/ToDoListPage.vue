@@ -5,10 +5,10 @@
         <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg overflow-y-auto">
               <div class="mb-4">
                   <h1 class="text-3xl text-gray-900">Ma Todo</h1>
-                  <todo-input @onSaveTodo="addTodo"  />
+                  <todo-input />
               </div>
               <todo-progress-bar />
-              <todo-list @onDelete="deleteTodo"/>
+              <todo-list/>
           </div>
       </div>
     </div> 
@@ -31,24 +31,6 @@ export default {
       description: "",
     }
   },
-  computed: {
-      percentageDone () {
-        return this.$store.getters.percentageDone;
-      },
-     maxTodoId () {
-       return Math.max(...this.$store.state.todos.map(todo => todo.id));
-     }
-  },
-  methods: {
-    deleteTodo(id) {
-      this.$store.state.todos.splice(this.$store.state.todos.findIndex(todo => todo.id === id), 1);
-    },
-    addTodo(description) {
-      if (description) {
-        this.$store.state.todos.unshift({id: this.maxTodoId + 1, description: description, done: false});
-        description = "";
-      }
-    },
-  }
+  
 }
 </script>
