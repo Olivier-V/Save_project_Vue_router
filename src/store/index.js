@@ -1,45 +1,54 @@
 // Assurez vous d'appeler `Vue.use(Vuex)` en premier lieu si vous utilisez un système de module
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-    state: {
-        todos: [
-            {
-              id: 1,
-              done: false,
-              description: 'Ajouter une todo avec Vue',
-            },
-            {
-              id: 2,
-              done: true,
-              description: 'Design de ma Todo',
-            },
-          ]
+  state: {
+    todos: {},
+  },
+  mutations: {
+    addTodo(state, newTodo) {
+      state.todos.unshift(newTodo);
+      axios
+        .post("http://localhost:3000/api/v1/todos", newTodo)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    mutations: {
-      
-      addTodo(state , todo) {
-        if (todo) {
-          state.todos.unshift(todo);
-        }
-      },
-      deleteTodo(state , id ) {
-        state.todos.splice(state.todos.findIndex(todo => todo.id === id), 1);
-      },
-      
+    deleteTodo(state, _id) {
+      axios
+        .delete("http://localhost:3000/api/v1/todos/" + _id)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      state.todos.splice(
+        state.todos.findIndex((todo) => todo._id === _id),
+        1
+      );
     },
-    getters:{
-      percentageDone : (state) => {
-        return `${state.todos.length > 0 ? (((state.todos.filter(todo => todo.done)).length /state.todos.length) * 100).toFixed(2) : 0}%`;
-      },
-      maxTodoId : (state) => {
-        return Math.max(...state.todos.map(todo => todo.id));
-      }
-    }
-  })
+  },
+  getters: {
+    percentageDone: (state) => {
+      return `${
+        state.todos.length > 0
+          ? (
+              (state.todos.filter((todo) => todo.done).length /
+                state.todos.length) *
+              100
+            ).toFixed(2)
+          : 0
+      }%`;
+    },
+  },
+});
 
-  export default store;
-  
+export default store;

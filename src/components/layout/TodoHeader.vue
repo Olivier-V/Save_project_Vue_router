@@ -14,6 +14,16 @@
     justify-content: space-around;
     height: 50px;
     color: white;
+    font-size: xx-large;
+}
+li{
+    padding: 5px;
+}
+li:hover{
+    color: lightblue;
+    text-shadow: 2px 2px 2px blue;
+    border: 2px dotted blue;
+    border-radius: 30px;
 }
 </style>
 

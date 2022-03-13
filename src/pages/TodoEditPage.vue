@@ -20,23 +20,34 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       newText: "",
       todo: this.$store.state.todos.find(
-        (todo) => todo.id === this.$route.params.id
+        (todo) => todo._id === this.$route.params._id
       ),
     };
   },
   methods:{
       onUpdate(){
-        //   this.$store.state.todos.forEach(element => {
-        //     if(element.id == this.todo.id){
-        //         element.description = this.newText;
-        //     }  
-        //   });
-        console.log('Mis à jour')
+        let todoToUpdate ={
+          _id : this.todo._id,
+          description : this.newText,
+          done: this.todo.done
+        } 
+        axios
+        .patch("http://localhost:3000/api/v1/todos/"+this.$route.params._id, todoToUpdate)
+        .then((response) => {
+             console.log(response);
+             console.log('Mis à jour');
+             window.location.replace('http://localhost:8080/todos');
+           })
+           .catch((error) => {
+             console.log(error);
+           });
+        
       }
   }
 };
@@ -75,8 +86,8 @@ export default {
         height: 200px;
     }
     textarea{
-        width: 400px; 
-        height: 150px;
+        width: 100%; 
+        height: 80%;
     }
     #valid{
         margin-top: 10px;
